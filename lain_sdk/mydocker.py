@@ -101,14 +101,14 @@ def build_image(name, context, build_args):
     info('building image {} ...'.format(name))
     docker_args = ['build', '-t', name, '.']
     if build_args:
-        build_args = \
-            list(map(lambda arg: arg if not arg.split('=')[1].startswith('$') else '{}={}'.format(arg.split('=')[0], \
-                     os.environ.get(arg.split('=')[1][1:])), build_args))
-        docker_args = ['build']
+        docker_args = ['build', '-t', name]
         for arg in build_args:
+            key, val = arg.split('=', 1)
+            if val.startswith('$'):
+                val = os.environ[val[1:]]
             docker_args.append('--build-arg')
-            docker_args.append(arg)
-        docker_args.extend(['-t', name, '.'])
+            docker_args.append('{}={}'.format(key, val))
+        docker_args.append('.')
     retcode = _docker(docker_args, cwd=context)
     if retcode != 0:
         name = None

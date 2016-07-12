@@ -102,6 +102,9 @@ def build_image(name, context, build_args):
     docker_args = ['build', '-t', name, '.']
     if len(build_args) != 0:
         docker_args = \
+            list(map(lambda arg: arg if not arg.split('=')[1].startswith('$') else '{}={}'.format(arg.split('=')[0], \
+                     os.environ.get(arg.split('=')[1][1:])), build_args))
+        docker_args = \
             ['build'] + \
             list(map(lambda arg: '--build-arg {}'.format(arg), build_args)) + \
             ['-t', name, '.']

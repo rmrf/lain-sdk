@@ -106,7 +106,7 @@ def build_image(name, context, build_args):
                      os.environ.get(arg.split('=')[1][1:])), build_args))
         docker_args = \
             ['build'] + \
-            list(map(lambda arg: '--build-arg {}'.format(arg), build_args)) + \
+            list(map(lambda arg: '--build-arg={}'.format(arg), build_args)) + \
             ['-t', name, '.']
     retcode = _docker(docker_args, cwd=context)
     if retcode != 0:

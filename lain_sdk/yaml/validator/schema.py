@@ -119,6 +119,9 @@ build__prepare = {
         "script": {
             "items": {"type": "string"}
         },
+        "build_arg": {
+            "items": {"type": "string"}
+        },
         "keep": {
             "items": {"type": "string"}
         },
@@ -147,6 +150,10 @@ build = {
         },
         "script": {
             "description": "scripts to build the app",
+            "items": {"type": "string"}
+        },
+        "build_arg": {
+            "description": "build args to build the app",
             "items": {"type": "string"}
         },
     },

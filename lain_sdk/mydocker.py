@@ -97,9 +97,14 @@ def gen_dockerignore(path, ignore):
         f.write('# end of lain\n')
 
 
-def build_image(name, context):
+def build_image(name, context, build_args):
     info('building image {} ...'.format(name))
     docker_args = ['build', '-t', name, '.']
+    if len(build_args) != 0:
+        docker_args = \
+            ['build'] + \
+            list(map(lambda arg: '--build-arg {}'.format(arg), build_args)) + \
+            ['-t', name, '.']
     retcode = _docker(docker_args, cwd=context)
     if retcode != 0:
         name = None
@@ -109,14 +114,14 @@ def build_image(name, context):
     return name
 
 
-def build(name, context, ignore, template, params):
+def build(name, context, ignore, template, params, build_args):
     dockerfile_path = os.path.join(context, 'Dockerfile')
     dockerignore_path = os.path.join(context, '.dockerignore')
     dockerignore_backup = os.path.join(context, '.dockerignore.backup')
     try:
         gen_dockerfile(dockerfile_path, template, params)
         gen_dockerignore(dockerignore_path, ignore)
-        name = build_image(name, context)
+        name = build_image(name, context, build_args)
     finally:
         for path in [dockerfile_path, dockerignore_path]:
             if os.path.exists(path):

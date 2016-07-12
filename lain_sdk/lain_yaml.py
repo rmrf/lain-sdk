@@ -206,8 +206,7 @@ class LainYaml(object):
             'workdir': self.workdir,
             'copy_list': ['.'],
             'scripts': self.build.script,
-            'build_args': list(map(lambda arg: arg.split('=')[0],
-                                   self.build.build_arg))
+            'build_args': [arg.split('=')[0] for arg in self.build.build_arg]
         }
         name = self.img_builders['build'](context=self.ctx, params=params, build_args=self.build.build_arg)
         if name is None:
@@ -228,8 +227,7 @@ class LainYaml(object):
                 'workdir': self.workdir,
                 'copy_list': [],
                 'scripts': self.release.script,
-                'build_args': list(map(lambda arg: arg.split('=')[0],
-                                       self.build.build_arg))
+                'build_args': [arg.split('=')[0] for arg in self.build.build_arg]
             }
             inter_name = self.gen_name(phase='script_inter')
             script_inter_name = mydocker.build(inter_name, self.ctx, self.ignore, self.img_temps['build'], params, self.build.build_arg)

@@ -16,6 +16,10 @@ test:
   script:
     - make pylint test
 
+publish:
+  script:
+    - echo OK
+
 web:
   cmd: ./entry.sh
   port: 8000

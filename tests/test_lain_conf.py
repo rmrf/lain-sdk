@@ -43,6 +43,9 @@ class LainConfTests(TestCase):
                     test:
                         script:
                             - go test
+                    publish:
+                        script:
+                            - go test
                     web:
                         cmd: hello
                         port: 80
@@ -80,6 +83,9 @@ class LainConfTests(TestCase):
                             - src: entry.sh
                               dest: /entry.sh
                     test:
+                        script:
+                            - go test
+                    publish:
                         script:
                             - go test
                     web:
@@ -202,6 +208,9 @@ class LainConfTests(TestCase):
                     test:
                         script:
                             - go test
+                    publish:
+                        script:
+                            - go test
                     web:
                         cmd:
                     notify:
@@ -233,6 +242,9 @@ class LainConfTests(TestCase):
                             - src: entry.sh
                               dest: /entry.sh
                     test:
+                        script:
+                            - go test
+                    publish:
                         script:
                             - go test
                     web:
@@ -319,6 +331,9 @@ class LainConfTests(TestCase):
                     test:
                         script:
                             - go test
+                    publish:
+                        script:
+                            - go test
                     web:
                         cmd: hello
                         port: 80:tcp:foo
@@ -356,6 +371,9 @@ class LainConfTests(TestCase):
                             - src: entry.sh
                               dest: /entry.sh
                     test:
+                        script:
+                            - go test
+                    publish:
                         script:
                             - go test
                     web:
@@ -399,6 +417,9 @@ class LainConfTests(TestCase):
                     test:
                         script:
                             - go test
+                    publish:
+                        script:
+                            - go test
                     web:
                         cmd: hello
                         env:
@@ -429,6 +450,8 @@ class LainConfTests(TestCase):
                         copy:
                             - {dest: /usr/bin/hello, src: hello}
                     test:
+                        script: [go test]
+                    publish:
                         script: [go test]
                     web.web1:
                         cmd: hello
@@ -466,6 +489,9 @@ class LainConfTests(TestCase):
                     test:
                         script:
                             - go test
+                    publish:
+                        script:
+                            - go test
                     web:
                         cmd: hello
                         port: 80
@@ -500,6 +526,8 @@ class LainConfTests(TestCase):
                             - {dest: /usr/bin/hello, src: hello}
                     test:
                         script: [go test]
+                    publish:
+                        script: [go test]
                     proc.mailer: {type: worker, cmd: hello, port: 80, memory: 128m}
                     notify: {slack: '#hello'}
                     '''
@@ -530,6 +558,9 @@ class LainConfTests(TestCase):
                             - src: entry.sh
                               dest: /entry.sh
                     test:
+                        script:
+                            - go test
+                    publish:
                         script:
                             - go test
                     web:
@@ -567,6 +598,9 @@ class LainConfTests(TestCase):
                             - src: entry.sh
                               dest: /entry.sh
                     test:
+                        script:
+                            - go test
+                    publish:
                         script:
                             - go test
                     web:
@@ -610,6 +644,9 @@ class LainConfTests(TestCase):
                     test:
                         script:
                             - go test
+                    publish:
+                        script:
+                            - go test
                     web:
                         cmd: hello
                         port: 80
@@ -635,6 +672,8 @@ class LainConfTests(TestCase):
                         copy:
                             - {dest: /usr/bin/hello, src: hello}
                     test:
+                        script: [go test]
+                    publish:
                         script: [go test]
                     proc.mailer: {type: worker, cmd: hello, port: 80, memory: 128m}
                     notify: {slack: '#hello'}
@@ -718,6 +757,9 @@ class LainConfTests(TestCase):
                     test:
                         script:
                             - go test
+                    publish:
+                        script:
+                            - go test
                     web:
                         cmd: hello
                         port: 80
@@ -764,6 +806,9 @@ class LainConfTests(TestCase):
                             - src: entry.sh
                               dest: /entry.sh
                     test:
+                        script:
+                            - go test
+                    publish:
                         script:
                             - go test
                     service.echo:
@@ -824,6 +869,9 @@ class LainConfTests(TestCase):
                     test:
                         script:
                             - go test
+                    publish:
+                        script:
+                            - go test
                     worker:
                         cmd: worker
                         memory: 64m
@@ -856,6 +904,9 @@ class LainConfTests(TestCase):
                             - src: entry.sh
                               dest: /entry.sh
                     test:
+                        script:
+                            - go test
+                    publish:
                         script:
                             - go test
                     service.echo:
@@ -902,6 +953,9 @@ class LainConfTests(TestCase):
                             - src: entry.sh
                               dest: /entry.sh
                     test:
+                        script:
+                            - go test
+                    publish:
                         script:
                             - go test
                     web:
@@ -969,6 +1023,9 @@ class LainConfTests(TestCase):
                             - src: entry.sh
                               dest: /entry.sh
                     test:
+                        script:
+                            - go test
+                    publish:
                         script:
                             - go test
                     service.echo:
@@ -1044,6 +1101,9 @@ class LainConfTests(TestCase):
                     test:
                         script:
                             - go test
+                    publish:
+                        script:
+                            - go test
                     web:
                         cmd: hello
                         port: 80
@@ -1089,6 +1149,9 @@ class LainConfTests(TestCase):
                             - src: entry.sh
                               dest: /entry.sh
                     test:
+                        script:
+                            - go test
+                    publish:
                         script:
                             - go test
                     service.echo:
@@ -1149,6 +1212,9 @@ class LainConfTests(TestCase):
                     test:
                         script:
                             - go test
+                    publish:
+                        script:
+                            - go test
                     web.foo:
                         cmd: foo
                         memory: 64m
@@ -1180,6 +1246,9 @@ class LainConfTests(TestCase):
                             - src: entry.sh
                               dest: /entry.sh
                     test:
+                        script:
+                            - go test
+                    publish:
                         script:
                             - go test
                     service.echo:
@@ -1226,6 +1295,9 @@ class LainConfTests(TestCase):
                     test:
                         script:
                             - go test
+                    publish:
+                        script:
+                            - go test
                     service.echo:
                         cmd: ./echo -p 1234
                         port: 1234
@@ -1265,6 +1337,9 @@ class LainConfTests(TestCase):
                             - src: entry.sh
                               dest: /entry.sh
                     test:
+                        script:
+                            - go test
+                    publish:
                         script:
                             - go test
 
@@ -1312,6 +1387,9 @@ class LainConfTests(TestCase):
                     test:
                         script:
                             - go test
+                    publish:
+                        script:
+                            - go test
                     use_services:
                         echo-server:
                             - echo1
@@ -1350,6 +1428,9 @@ class LainConfTests(TestCase):
                             - src: entry.sh
                               dest: /entry.sh
                     test:
+                        script:
+                            - go test
+                    publish:
                         script:
                             - go test
                     service.echo:
@@ -1395,6 +1476,9 @@ class LainConfTests(TestCase):
                             - src: entry.sh
                               dest: /entry.sh
                     test:
+                        script:
+                            - go test
+                    publish:
                         script:
                             - go test
 
@@ -1449,6 +1533,9 @@ class LainConfTests(TestCase):
                     test:
                         script:
                             - go test
+                    publish:
+                        script:
+                            - go test
                     use_resources:
                         echo-server:
                             memory: 128M
@@ -1501,6 +1588,9 @@ class LainConfTests(TestCase):
                             - src: entry.sh
                               dest: /entry.sh
                     test:
+                        script:
+                            - go test
+                    publish:
                         script:
                             - go test
                     use_resources:

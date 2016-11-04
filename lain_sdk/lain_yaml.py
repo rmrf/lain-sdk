@@ -323,6 +323,33 @@ class LainYaml(object):
             info("Tests Passed")
             return (True, test_name)
 
+    def build_publish(self):
+        """
+        :return: (True, image_name) or (False, None)
+        """
+        self._prepare_act()
+        if not self.build_base(use_prepare=True)[0]:
+            return (False, None)
+
+        params = {
+            'base': self.image_names['build'],
+            'workdir': self.workdir,
+            'copy_list': [],
+            'scripts': self.publish.script
+        }
+        publish_name = self.image_builders['publish'](context=self.ctx, params=params, build_args=[])
+        if publish_name is None:
+            last_container_id = mydocker.get_latest_container_id()
+            if last_container_id != -1:
+                mydocker.commit(last_container_id, self.img_names['publish'])
+
+        if publish_name is None:
+            error("Publish Fail")
+            return (False, None)
+        else:
+            info("Publish Success")
+            return (True, publish_name)
+
     def build_meta(self):
         """
         :return: (True, image_name) or (False, None)
@@ -350,7 +377,7 @@ class LainYaml(object):
 
         self.gen_name = partial(mydocker.gen_image_name, appname=self.appname)
 
-        phases = ('prepare', 'build', 'release', 'test', 'meta')
+        phases = ('prepare', 'build', 'release', 'test', 'publish', 'meta')
         self.img_names = {phase: self.gen_name(phase=phase) for phase in phases}
         if ignore_prepare:
             shared_prepare_image_name = None
@@ -366,6 +393,7 @@ class LainYaml(object):
             'build': 'build_dockerfile.j2',
             'release': 'release_dockerfile.j2',
             'test': 'build_dockerfile.j2',
+            'publish': 'build_dockerfile.j2',
             'meta': 'meta_dockerfile.j2'
         }
         self.img_temps = {phase: load_template(j2temps[phase]) for phase in phases}

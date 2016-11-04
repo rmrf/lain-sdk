@@ -175,6 +175,19 @@ test = {
     "required": [ "script" ]
 }
 
+publish = {
+    "description": "how to publish the app",
+    "type": "object",
+    "properties": {
+        "script": {
+            "description": "scripts to publish the app",
+            "items": {"type": "string"}
+        },
+    },
+    "additionalProperties": False,
+    "required": [ "script" ]
+}
+
 release = {
     "description": "how to release the app",
     "type": "object",
@@ -274,6 +287,7 @@ schema = {
         "apptype": apptype,
         "build": build,
         "test": test,
+        "publish": publish,
         "release": release,
         "use_services": use_services,
         "use_resources": use_resources,

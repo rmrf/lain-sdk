@@ -24,6 +24,7 @@ class TestLainYaml:
         assert y.release.copy[0]['src'] == 'hello'
         assert y.release.copy[0]['dest'] ==  '/usr/bin/hello'
         assert y.test.script == ['( go test )']
+        assert y.publish.script == ['( go test )']
         assert y.procs['web'].cmd == 'hello'
         assert y.procs['web'].setup_time == 40
         assert y.procs['web'].kill_timeout == 30
@@ -33,13 +34,13 @@ class TestLainYaml:
         assert y.act == False
         y.init_act(YAML, ignore_prepare=True)
         assert y.act == True
-        assert len(y.img_names) == 5
-        assert len(y.img_temps) == 5
-        assert len(y.img_builders) == 5
+        assert len(y.img_names) == 6
+        assert len(y.img_temps) == 6
+        assert len(y.img_builders) == 6
 
         y = LainYaml(YAML, ignore_prepare=True)
         assert y.act == True
-        assert len(y.img_names) == 5
-        assert len(y.img_temps) == 5
-        assert len(y.img_builders) == 5
+        assert len(y.img_names) == 6
+        assert len(y.img_temps) == 6
+        assert len(y.img_builders) == 6
 

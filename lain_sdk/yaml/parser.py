@@ -434,12 +434,19 @@ class Test:
         self.script = meta.get('script') or []
         self.script = ['( %s )'%s for s in self.script]
 
+class Publish:
+    script = []
+
+    def load(self, meta):
+        self.script = meta.get('script') or []
+        self.script = ['( %s )'%s for s in self.script]
 
 class LainConf:
     appname = ''
     build = Build()
     release = Release()
     test = Test()
+    publish = Publish()
     procs = {}
     notify = {}
     use_services = {}
@@ -457,6 +464,7 @@ class LainConf:
         self.build = self._load_build(meta)
         self.release = self._load_release(meta)
         self.test = self._load_test(meta)
+        self.publish = self._load_publish(meta)
         self.notify = self._load_notify(meta)
 
         use_services_meta = meta.get('use_services', None)
@@ -535,6 +543,12 @@ class LainConf:
         if meta is not None:
             self.test.load(meta)
         return self.test
+
+    def _load_publish(self, meta):
+        meta = meta.get('publish', None)
+        if meta is not None:
+            self.publish.load(meta)
+        return self.publish
 
     def _load_notify(self, meta):
         meta = meta.get('notify', None)

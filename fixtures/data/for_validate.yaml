@@ -30,6 +30,10 @@ test:
   script:
     - echo OK
 
+publish:
+  script:
+    - echo OK
+
 web:
   cmd: tail -f /lain/app/bundle/prepare_version /lain/app/production
   port: 8000

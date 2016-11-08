@@ -332,12 +332,12 @@ class LainYaml(object):
             return (False, None)
 
         params = {
-            'base': self.image_names['build'],
+            'base': self.img_names['build'],
             'workdir': self.workdir,
             'copy_list': [],
             'scripts': self.publish.script
         }
-        publish_name = self.image_builders['publish'](context=self.ctx, params=params, build_args=[])
+        publish_name = self.img_builders['publish'](context=self.ctx, params=params, build_args=[])
         if publish_name is None:
             last_container_id = mydocker.get_latest_container_id()
             if last_container_id != -1:

@@ -75,6 +75,7 @@ typed_proc_properties = {
     "mountpoint": {"items": {"type": "string"}},
     "https_only": {"type": "boolean"},
     "ldap_auth": {"type": "boolean"},
+    "whitelist_only": {"type": "boolean"},
     "stateful": {"type": "boolean"},
     "kill_timeout": {"type": "integer", "minimum": MIN_KILL_TIMEOUT, "maximum": MAX_KILL_TIMEOUT},
     "setup_time": {"type": "integer", "minimum": MIN_SETUP_TIME, "maximum": MAX_SETUP_TIME},

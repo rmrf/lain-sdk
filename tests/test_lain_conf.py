@@ -106,6 +106,7 @@ class LainConfTests(TestCase):
                             - b.cn/xyz
                         https_only: false
                         ldap_auth: false
+                        whitelist_only: false
                     worker.foo:
                         cmd: worker
                         memory: 128m
@@ -132,6 +133,7 @@ class LainConfTests(TestCase):
         assert hello_conf.procs['bar'].mountpoint == ['a.com', 'b.cn/xyz']
         assert hello_conf.procs['bar'].https_only is False
         assert hello_conf.procs['bar'].ldap_auth is False
+        assert hello_conf.procs['bar'].whitelist_only is False
 
     def test_lain_conf_notify_slack(self):
         meta_yaml = '''

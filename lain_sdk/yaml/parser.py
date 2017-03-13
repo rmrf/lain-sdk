@@ -135,6 +135,7 @@ class Proc:
     mountpoint = []
     https_only = True
     ldap_auth = False
+    whitelist_only = False
     healthcheck = ''
     user = ''
     working_dir = ''
@@ -208,6 +209,9 @@ class Proc:
 
             # 默认不使用LDAP
             self.ldap_auth = meta.get('ldap_auth', False)
+
+            # 默认不使用IP白名单
+            self.whitelist_only = meta.get('whitelist_only', False)
 
             # 默认注入的 mountpoint 包括
             # - [APPDOMAIN.domain for domain in domains]
@@ -348,6 +352,8 @@ class Proc:
             data['https_only'] = self.https_only
         if self.ldap_auth is not None:
             data['ldap_auth'] = self.ldap_auth
+        if self.whitelist_only is not None:
+            data['whitelist_only'] = self.whitelist_only
         if self.service_name:
             data['service_name'] = self.service_name
         if self.backup:

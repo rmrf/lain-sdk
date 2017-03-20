@@ -12,6 +12,7 @@ typed_proc_pattern = "^(web|worker|oneshot)" + "(\." + core_pattern + ")?$"
 service_proc_pattern = "^(service\.)" + core_pattern + "$"
 portal_proc_pattern = "^(portal\.)" + core_pattern + "$"
 apptype_pattern = "^(resource|app)$"
+memory_pattern = "^[1-9]+[0-9]*[mMgG]$"
 
 path_pattern = "^.*$"
 
@@ -56,20 +57,56 @@ persistent_dirs_item = {
     ]
 }
 
+cloud_volumes_policy = {
+    "description": "mount volumes from nfs like file system",
+    "type": "object",
+    "properties": {
+        "type": {
+            "description": "whether store in one volume for all the instances",
+            "items": {"type": "string"}
+        },
+        "dirs": {
+            "items": {"type": "string"},
+        },
+    },
+    "additionalProperties": False,
+    "required": [ "dirs" ]
+}
+
+exec_form_or_shell_form = {
+    "description": "exec form or shell form similar to the one in Dockerfile",
+    "oneOf": [
+        {"type": "null"},
+        {"type": "string"},
+        {
+            "type": "array",
+            "items": {"type": "string"}
+        }
+    ]
+}
+
+memory = {
+    "description": "memory limit",
+    "type": "string",
+    "pattern": memory_pattern
+}
+
 typed_proc_properties = {
     "user": {"type": "string"},
     "image": {"type": "string"},
-    "cmd": {"type": "string"},
+    "entrypoint": exec_form_or_shell_form,
+    "cmd": exec_form_or_shell_form,
     "workdir": {"type": "string"},
     "working_dir": {"type": "string"},
     "num_instances": {"type": "integer"},
     "cpu": {"type": "integer"},
-    "memory": {"type": "string"},
+    "memory": memory,
     "port": {"type": "integer"},
     "healthcheck": {"type": "string"},
     "env": {"items": {"type": "string"}},
     "persistent_dirs": {"items": persistent_dirs_item},
     "volumes": {"items": persistent_dirs_item},
+    "cloud_volumes": cloud_volumes_policy,
     "secret_files": {"items": {"type": "string"}},
     "logs": {"items": {"type": "string"}},
     "mountpoint": {"items": {"type": "string"}},
@@ -304,6 +341,14 @@ schema = {
             "type": "object",
             "properties": typed_proc_properties,
             "additionalProperties": False,
+            "anyOf": [
+                {
+                    "required": ["entrypoint"]
+                },
+                {
+                    "required": ["cmd"]
+                }
+            ]
         },
         portal_proc_pattern: {
             "type": "object",
